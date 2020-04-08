@@ -49,11 +49,11 @@ void TestFunctionForHashTable(HashTableType &hash_table, const string &words_fil
   }
 
   while(getline(query,line)){
-    if(hash_table.contains(line) == true){
-      cout << line" Found " <<hash_table.public_get_probes(line) << endl;
+    if(hash_table.Contains(line) == true){
+      cout << line << " Found " <<hash_table.public_get_probes(line) << endl;
     }
     else{
-      cout << line" Not Found" << hash_table.public_get_probes(line) <<endl;
+      cout << line << " Not Found " << hash_table.public_get_probes(line) <<endl;
     }
   }
 }

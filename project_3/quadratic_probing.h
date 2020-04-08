@@ -111,15 +111,7 @@ class HashTable {
   float Loadfactor(){
     return Num_elements()/table_size();
   }
-
-  void reset_probes(){
-    probes = 0;
-  }
-
-  int get_probes(){
-    return probes;
-  }
-
+ 
   size_t public_get_probes(const HashedObj& x){
 
     return private_get_probes(x);
@@ -149,7 +141,7 @@ class HashTable {
       int probes = 0;
     while (array_[current_pos].info_ != EMPTY &&
 	   array_[current_pos].element_ != x) {
-      probes++
+      probes++;
       current_pos += offset;  // Compute ith probe.
       offset += 2;
 
