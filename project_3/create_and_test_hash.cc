@@ -3,6 +3,7 @@
 
 #include "quadratic_probing.h"
 #include "linear_probing.h"
+#include "double_hashing.h"
 
 #include <iostream>
 #include <fstream>
@@ -71,8 +72,8 @@ int testFunctionWrapper(int argument_count, char **argument_list) {
     HashTable<string> quadratic_probing_table;
     TestFunctionForHashTable(quadratic_probing_table, words_filename, query_filename);    
   } else if (param_flag == "double") {
-    // HashTableDouble<string> double_probing_table;
-    // TestFunctionForHashTable(double_probing_table, words_filename, query_filename);    
+    HashTableDouble<string> double_probing_table;
+    TestFunctionForHashTable(double_probing_table, words_filename, query_filename);    
   } else {
     cout << "Unknown tree type " << param_flag << " (User should provide linear, quadratic, or double)" << endl;
   }
