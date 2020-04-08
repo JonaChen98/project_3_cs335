@@ -6,7 +6,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-
+#include <fstream>
 
 
 using namespace std;
@@ -18,8 +18,20 @@ void TestFunctionForHashTable(HashTableType &hash_table, const string &words_fil
   cout << "Words filename: " << words_filename << endl;
   cout << "Query filename: " << query_filename << endl;
   hash_table.MakeEmpty();  
-  //..Insert your own code
+  // insert own code... so you want to insert from words.txt and find from querywords.txt
+  ifstream words_file;
+  string line;
 
+  words_file.open(words_filename);
+  if(!words_file) {
+    cout << "Error opening file" << endl;
+    exit(1);
+  }
+
+  while(getline(words_file, line)) {
+    hash_table.Insert(line);
+  }
+  
   cout << "Collisions: " << hash_table.Public_Count_Collisions() << endl;
   cout << "Number of items: " << hash_table.Num_elements() << endl;
   cout << "Size of hash table: " << hash_table.table_size()<< endl;
