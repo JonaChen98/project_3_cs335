@@ -19,12 +19,12 @@ void TestFunctionForHashTable(HashTableType &hash_table, const string &words_fil
   cout << "Query filename: " << query_filename << endl;
   hash_table.MakeEmpty();  
   // insert own code... so you want to insert from words.txt and find from querywords.txt
-  ifstream words_file;
+  ifstream words_file, query;
   string line;
   int word_count =0;
   words_file.open(words_filename);
   if(!words_file) {
-    cout << "Error opening file" << endl;
+    cout << "err opening file" << endl;
     exit(1);
   }
 
@@ -40,6 +40,22 @@ void TestFunctionForHashTable(HashTableType &hash_table, const string &words_fil
   cout << "Collisions: " << hash_table.Public_Count_Collisions() << endl;
   float avg_collision =( hash_table.Public_Count_Collisions()/(float)hash_table.Num_elements());
   cout << "Avg. number of collisions: " << avg_collision << endl; //number of collisions/ number of elements in table (current size)
+
+  words_file.close();
+  query.open(query_filename);
+  if(!query){
+    cout<<"err opening file" << endl;
+    exit(1);
+  }
+
+  while(getline(query,line)){
+    if(hash_table.contains(line) == true){
+      cout << line" Found " <<hash_table.public_get_probes(line) << endl;
+    }
+    else{
+      cout << line" Not Found" << hash_table.public_get_probes(line) <<endl;
+    }
+  }
 }
 
 int testFunctionWrapper(int argument_count, char **argument_list) {

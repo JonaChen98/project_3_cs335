@@ -45,6 +45,7 @@ class HashTable {
     { MakeEmpty(); }
   
   bool Contains(const HashedObj & x) const {
+    
     return IsActive(FindPos(x));
   }
   
@@ -111,6 +112,19 @@ class HashTable {
     return Num_elements()/table_size();
   }
 
+  void reset_probes(){
+    probes = 0;
+  }
+
+  int get_probes(){
+    return probes;
+  }
+
+  size_t public_get_probes(const HashedObj& x){
+
+    return private_get_probes(x);
+  }
+
   
 
  private:        
@@ -128,6 +142,22 @@ class HashTable {
 
   std::vector<HashEntry> array_;
   size_t current_size_;
+ 
+  size_t private_get_probes(const HashedObj& x) const{
+    size_t offset = 1;
+    size_t current_pos = InternalHash(x);
+      int probes = 0;
+    while (array_[current_pos].info_ != EMPTY &&
+	   array_[current_pos].element_ != x) {
+      probes++
+      current_pos += offset;  // Compute ith probe.
+      offset += 2;
+
+      if (current_pos >= array_.size())
+	current_pos -= array_.size();  
+    }
+    return probes + 1;
+  }
 
 
 
