@@ -2,6 +2,7 @@
 
 
 #include "quadratic_probing.h"
+#include "linear_probing.h"
 
 #include <iostream>
 #include <fstream>
@@ -64,8 +65,8 @@ int testFunctionWrapper(int argument_count, char **argument_list) {
   const string param_flag(argument_list[3]);
 
   if (param_flag == "linear") {
-    // HashTableLinear<string> linear_probing_table;
-    // TestFunctionForHashTable(linear_probing_table, words_filename, query_filename);    
+    HashTableLinear<string> linear_probing_table;
+    TestFunctionForHashTable(linear_probing_table, words_filename, query_filename);    
   } else if (param_flag == "quadratic") {
     HashTable<string> quadratic_probing_table;
     TestFunctionForHashTable(quadratic_probing_table, words_filename, query_filename);    

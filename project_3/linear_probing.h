@@ -9,7 +9,7 @@
 namespace {
 
 // Internal method to test if a positive number is prime.
-bool IsPrime(size_t n) {
+bool IsPrimes(size_t n) {
   if( n == 2 || n == 3 )
     return true;
   
@@ -25,10 +25,10 @@ bool IsPrime(size_t n) {
 
 
 // Internal method to return a prime number at least as large as n.
-int NextPrime(size_t n) {
+int NextPrimes(size_t n) {
   if (n % 2 == 0)
     ++n;  
-  while (!IsPrime(n)) n += 2;  
+  while (!IsPrimes(n)) n += 2;  
   return n;
 }
 
@@ -37,11 +37,11 @@ int NextPrime(size_t n) {
 
 // Quadratic probing implementation.
 template <typename HashedObj>
-class HashTable {
+class HashTableLinear {
  public:
   enum EntryType {ACTIVE, EMPTY, DELETED};
 
-  explicit HashTable(size_t size = 101) : array_(NextPrime(size))
+  explicit HashTableLinear(size_t size = 101) : array_(NextPrimes(size))
     { MakeEmpty(); }
   
   bool Contains(const HashedObj & x) const {
@@ -172,7 +172,7 @@ class HashTable {
     std::vector<HashEntry> old_array = array_;
 
     // Create new double-sized, empty table.
-    array_.resize(NextPrime(2 * old_array.size()));
+    array_.resize(NextPrimes(2 * old_array.size()));
     for (auto & entry : array_)
       entry.info_ = EMPTY;
     
