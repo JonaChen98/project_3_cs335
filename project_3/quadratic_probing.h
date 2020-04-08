@@ -62,7 +62,7 @@ class HashTable {
     
     array_[current_pos].element_ = x;
     array_[current_pos].info_ = ACTIVE;
-    current_size_++;
+    
     
     // Rehash; see Section 5.5
     if (++current_size_ > array_.size() / 2)
@@ -78,6 +78,7 @@ class HashTable {
     
     array_[current_pos] = std::move(x);
     array_[current_pos].info_ = ACTIVE;
+    
 
     // Rehash; see Section 5.5
     if (++current_size_ > array_.size() / 2)
@@ -96,14 +97,18 @@ class HashTable {
   }
   
   size_t Public_Count_Collisions(){
-    return private_count_collisions();
+    return collisions;
   }
-  size_t table_size(){
+  int table_size(){
     return array_.size();
   }
 
-  size_t Num_elements(){
+  int Num_elements(){
     return current_size_;
+  }
+
+  float Loadfactor(){
+    return Num_elements()/table_size();
   }
 
   
@@ -119,14 +124,11 @@ class HashTable {
     HashEntry(HashedObj && e, EntryType i = EMPTY)
     :element_{std::move(e)}, info_{ i } {}
   };
-  size_t collisions = 0;
+  mutable size_t collisions = 0;
 
   std::vector<HashEntry> array_;
-  size_t current_size_ = 0;
+  size_t current_size_;
 
-  size_t private_count_collisions(){
-    return collisions;
-  }
 
 
   bool IsActive(size_t current_pos) const

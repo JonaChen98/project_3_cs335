@@ -21,7 +21,7 @@ void TestFunctionForHashTable(HashTableType &hash_table, const string &words_fil
   // insert own code... so you want to insert from words.txt and find from querywords.txt
   ifstream words_file;
   string line;
-
+  int word_count =0;
   words_file.open(words_filename);
   if(!words_file) {
     cout << "Error opening file" << endl;
@@ -30,14 +30,15 @@ void TestFunctionForHashTable(HashTableType &hash_table, const string &words_fil
 
   while(getline(words_file, line)) {
     hash_table.Insert(line);
+    word_count++;
   }
   
-  cout << "Collisions: " << hash_table.Public_Count_Collisions() << endl;
   cout << "Number of items: " << hash_table.Num_elements() << endl;
   cout << "Size of hash table: " << hash_table.table_size()<< endl;
-  size_t load_factor = hash_table.Num_elements()/ hash_table.table_size();
+  float load_factor = ((float)hash_table.Num_elements() / hash_table.table_size());
   cout << "Load factor: "<< load_factor << endl; // number of elements/tablesize
-  size_t avg_collision = hash_table.Public_Count_Collisions()/ hash_table.Num_elements();
+  cout << "Collisions: " << hash_table.Public_Count_Collisions() << endl;
+  float avg_collision =( hash_table.Public_Count_Collisions()/(float)hash_table.Num_elements());
   cout << "Avg. number of collisions: " << avg_collision << endl; //number of collisions/ number of elements in table (current size)
 }
 
