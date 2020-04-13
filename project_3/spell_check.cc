@@ -1,6 +1,8 @@
 // YOUR NAME.
 
 #include "quadratic_probing.h"
+#include "linear_probing.h"
+#include "double_hashing.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -15,8 +17,39 @@ int testSpellingWrapper(int argument_count, char** argument_list) {
   cout << "Input dictionary filename is " << dictionary_filename << endl;
 
   // Call functions implementing the assignment requirements.
+  HashTable<string> Dictionary_table;
+  Dictionary_table.MakeEmpty();
 
-}
+  string diction_word;
+  string document_word;
+  ifstream document_stream;
+  ifstream dictionary_stream;
+
+  document_stream.open(document_filename);
+    if(document_stream.fail()){
+      cerr << "error on opening";
+  }
+
+  dictionary_stream.open(dictionary_filename);
+    if(dictionary_stream.fail()){
+      cerr << "error on opening";
+  }
+  // insert all dictionary words into quadratic hashtable
+  while(getline(dictionary_stream,diction_word)){
+    Dictionary_table.Insert(diction_word);
+  }
+
+  //implementation for reading each line in document file and then checking
+  //if containts in the hashtable
+  while(getline(document_stream,document_word)){
+     //if contains then just print <word1> is CORRECT
+    if(Dictionary_table.Contains(document_word)){
+      cout << document_word << " is CORRECT" << endl;
+    }
+  }
+  //if not do error checkings
+} 
+
 
 // Sample main for program spell_check.
 // WE WILL NOT USE YOUR MAIN IN TESTING. DO NOT CODE FUNCTIONALITY INTO THE MAIN.
