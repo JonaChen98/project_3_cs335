@@ -43,6 +43,10 @@ int testSpellingWrapper(int argument_count, char** argument_list) {
   //if containts in the hashtable
   while(getline(document_stream,document_word)){
      //if contains then just print <word1> is CORRECT
+    for(int i = 0; i < document_word.length(); i++){
+      document_word[i] = tolower(document_word[i]);
+    }
+    
     if(Dictionary_table.Contains(document_word)){
       cout << document_word << " is CORRECT" << endl;
     }
